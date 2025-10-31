@@ -99,4 +99,94 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="col-auto">
-                  <i className
+                  <i className="fas fa-exclamation-triangle fa-2x text-gray-300">⚠️</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-xl-3 col-md-6 mb-4">
+          <div className="card border-left-info shadow h-100 py-2">
+            <div className="card-body">
+              <div className="row no-gutters align-items-center">
+                <div className="col mr-2">
+                  <div className="text-xs font-weight-bold text-info text-uppercase mb-1">
+                    Receita do Mês
+                  </div>
+                  <div className="h5 mb-0 font-weight-bold text-gray-800">
+                    {formatarMoeda(estatisticas.pagamentosMes)}
+                  </div>
+                </div>
+                <div className="col-auto">
+                  <i className="fas fa-dollar-sign fa-2x text-gray-300">💰</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        {/* Próximos Vencimentos */}
+        <div className="col-lg-6 mb-4">
+          <div className="card shadow">
+            <div className="card-header bg-warning text-dark">
+              <h6 className="m-0 font-weight-bold">⏰ Próximos Vencimentos</h6>
+            </div>
+            <div className="card-body">
+              {proximosVencimentos.length === 0 ? (
+                <p className="text-muted">Nenhum vencimento próximo</p>
+              ) : (
+                <div className="list-group">
+                  {proximosVencimentos.map(pagamento => (
+                    <div key={pagamento.id} className="list-group-item">
+                      <div className="d-flex w-100 justify-content-between">
+                        <h6 className="mb-1">{pagamento.descricao}</h6>
+                        <small className={`badge ${pagamento.dias_para_vencer <= 3 ? 'bg-danger' : 'bg-warning'}`}>
+                          {pagamento.dias_para_vencer} dias
+                        </small>
+                      </div>
+                      <p className="mb-1">
+                        <strong>Cliente:</strong> {pagamento.cliente_nome}<br/>
+                        <strong>Valor:</strong> {formatarMoeda(pagamento.valor)}<br/>
+                        <strong>Vencimento:</strong> {pagamento.data_vencimento_formatada}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Ações Rápidas */}
+        <div className="col-lg-6 mb-4">
+          <div className="card shadow">
+            <div className="card-header bg-primary text-white">
+              <h6 className="m-0 font-weight-bold">🚀 Ações Rápidas</h6>
+            </div>
+            <div className="card-body">
+              <div className="d-grid gap-2">
+                <Link to="/clientes" className="btn btn-outline-primary btn-block">
+                  👥 Gerenciar Clientes
+                </Link>
+                <Link to="/processos" className="btn btn-outline-success btn-block">
+                  📁 Gerenciar Processos
+                </Link>
+                <Link to="/pagamentos" className="btn btn-outline-warning btn-block">
+                  💰 Gerenciar Pagamentos
+                </Link>
+                <Link to="/audiencias" className="btn btn-outline-info btn-block">
+                  🗓️ Agendar Audiência
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
